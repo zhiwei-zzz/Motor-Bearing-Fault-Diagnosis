@@ -34,7 +34,7 @@ def folder2img(save_path, folder_path, train_num, val_num, test_num, img_size):
             #           print(data_DE.shape[0])
             # print(min(DE_data))
             for i in range(train_num + val_num + test_num):
-                begin_number = random.randint(0, data_DE.shape[0] - img_size + 1)
+                begin_number = random.randint(0, data_DE.shape[0] - img_size)
                 img = data_DE[begin_number:begin_number + img_size]
                 img = np.round((img - min(img)) / (max(img) - min(img)) * 255)
                 img = np.reshape(img, (int(img_size ** 0.5), int(img_size ** 0.5)))
@@ -53,14 +53,17 @@ def folder2img(save_path, folder_path, train_num, val_num, test_num, img_size):
                     # plt.savefig(save_path + '/test/' + os.path.splitext(file)[0] + '_' + str(i - train_num -
                     # val_num) \ + '.png')
 
-            print('Finished creating img files for' + file)
+            print('Finished creating img files for ' + file)
 
 
 data_path = '../../data/12kDriveEnd'
+normal_path = '../../data/Normal_Baseline_Data'
 img_save_path = '../../data/12kDriveEnd_img'
-train_number = 80  # 800
-val_number = 10  # 100
-test_number = 10 # 100
+train_number = 800  # 800
+val_number = 100  # 100
+test_number = 100 # 100
 matrix_size = 64 * 64
-folder2img(img_save_path, data_path, train_number, val_number, test_number, matrix_size)
+#folder2img(img_save_path, data_path, train_number, val_number, test_number, matrix_size)
+folder2img(img_save_path, normal_path, train_number, val_number, test_number, matrix_size)
+
 # signal2image(data_path, matrix_number, matrix_size)

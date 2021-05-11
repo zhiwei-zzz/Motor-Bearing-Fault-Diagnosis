@@ -38,7 +38,7 @@ class MyDataset(Dataset):
         return sample
 
 
-# data = MyDataset('../../data/12kDriveEnd_img/test.csv', '../../data/12kDriveEnd_img/train')
+# data = MyDataset('../../data/12kDriveEnd_img/train.csv', '../../data/12kDriveEnd_img/train/')
 # img_data = DataLoader(dataset=data, batch_size=10, shuffle=True)
 # for batch, (X, y) in enumerate(img_data):
 #     print(y)
