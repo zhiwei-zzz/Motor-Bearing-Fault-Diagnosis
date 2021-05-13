@@ -1,5 +1,5 @@
 '''
-@File  :model.py
+@File  :eval_model.py
 @Author:Zhiwei Zheng
 @Date  :5/9/2021 5:06 PM
 @Desc  :LeNet5 Pytorch_ver
@@ -7,6 +7,7 @@
 
 from torch.nn import Module
 from torch import nn
+
 
 
 class Model(Module):
@@ -37,7 +38,7 @@ class Model(Module):
         self.fc3 = nn.Linear(768, 10)
         self.relu7 = nn.ReLU()
 
-        # self.softmax = nn.Softmax(dim=1)
+        #self.softmax = nn.Softmax(dim=1)
 
     def forward(self, x):
         y = self.conv1(x)
@@ -62,6 +63,7 @@ class Model(Module):
         y = self.fc3(y)
         y = self.relu7(y)
 
-        # y = self.softmax(y)
+        #y = self.softmax(y)
         return y
+
 

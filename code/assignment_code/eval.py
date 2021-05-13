@@ -2,7 +2,7 @@
 @File  :eval.py
 @Author:Zhiwei Zheng
 @Date  :5/9/2021 6:24 PM
-@Desc  :evaluate model
+@Desc  :evaluate eval_model
 '''
 
 from model import Model
@@ -29,10 +29,10 @@ def model_test(dataloader, test_model):
 
 
 if __name__ == '__main__':
-    batch_size = 64
+    batch_size = 256
     test_data = MyDataset('../../data/12kDriveEnd_img/test.csv', '../../data/12kDriveEnd_img/test')
     train_dataloader = DataLoader(test_data, batch_size=batch_size, shuffle=True)
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
-    model = torch.load('./model_0.9985714285714286.pth')
+    model = torch.load('./eval_model/model_0.7716428571428572.pth')
     precision = model_test(train_dataloader, model)
     print(precision)

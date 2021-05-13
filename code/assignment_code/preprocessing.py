@@ -33,25 +33,41 @@ def folder2img(save_path, folder_path, train_num, val_num, test_num, img_size):
             data_DE = raw_data[column_DE]
             #           print(data_DE.shape[0])
             # print(min(DE_data))
-            for i in range(train_num + val_num + test_num):
-                begin_number = random.randint(0, data_DE.shape[0] - img_size)
-                img = data_DE[begin_number:begin_number + img_size]
-                img = np.round((img - min(img)) / (max(img) - min(img)) * 255)
-                img = np.reshape(img, (int(img_size ** 0.5), int(img_size ** 0.5)))
-                # plt.imshow(img, plt.cm.gray)
-                if i < train_num:
+            if ("_3" in os.path.splitext(file)[0]) or ("_0" in os.path.splitext(file)[0]):
+                choices = [i for i in range(data_DE.shape[0] - img_size)]
+                print(os.path.splitext(file)[0], "train")
+                choice = random.sample(choices ,train_num)
+                for i in choice:
+                    begin_number = i
+                    img = data_DE[begin_number:begin_number + img_size]
+                    img = np.round((img - min(img)) / (max(img) - min(img)) * 255)
+                    img = np.reshape(img, (int(img_size ** 0.5), int(img_size ** 0.5)))
                     cv2.imwrite(save_path + '/train/' + os.path.splitext(file)[0] + '_' + str(i) + '.png', img)
-                    # plt.savefig(save_path + '/train/' + os.path.splitext(file)[0] + '_' + str(i) + '.png')
-                elif i < train_num + val_num:
-                    cv2.imwrite(save_path + '/val/' + os.path.splitext(file)[0] + '_' + str(i - train_num) + '.png',
-                                img)
-                    # plt.savefig(save_path + '/val/' + os.path.splitext(file)[0] + '_' + str(i - train_num) + '.png')
-                else:
-                    cv2.imwrite(save_path + '/test/' + os.path.splitext(file)[0] + '_' + str(i - train_num - val_num) \
-                                + '.png',
-                                img)
-                    # plt.savefig(save_path + '/test/' + os.path.splitext(file)[0] + '_' + str(i - train_num -
-                    # val_num) \ + '.png')
+
+            elif ("_1") in os.path.splitext(file)[0]:
+                choices = [i for i in range(data_DE.shape[0] - img_size)]
+                print(os.path.splitext(file)[0], "val")
+                choice = random.sample(choices, val_num)
+                for i in choice:
+                    begin_number = i
+                    img = data_DE[begin_number:begin_number + img_size]
+                    img = np.round((img - min(img)) / (max(img) - min(img)) * 255)
+                    img = np.reshape(img, (int(img_size ** 0.5), int(img_size ** 0.5)))
+                    cv2.imwrite(save_path + '/val/' + os.path.splitext(file)[0] + '_' + str(i) + '.png', img)
+
+            elif ("_2") in os.path.splitext(file)[0]:
+                choices = [i for i in range(data_DE.shape[0] - img_size)]
+                print(os.path.splitext(file)[0], "test")
+                choice = random.sample(choices, test_num)
+                for i in choice:
+                    begin_number = i
+                    img = data_DE[begin_number:begin_number + img_size]
+                    img = np.round((img - min(img)) / (max(img) - min(img)) * 255)
+                    img = np.reshape(img, (int(img_size ** 0.5), int(img_size ** 0.5)))
+                    cv2.imwrite(save_path + '/test/' + os.path.splitext(file)[0] + '_' + str(i) + '.png', img)
+
+            else:
+                print("wrong!", os.path.splitext(file)[0])
 
             print('Finished creating img files for ' + file)
 
@@ -59,11 +75,11 @@ def folder2img(save_path, folder_path, train_num, val_num, test_num, img_size):
 data_path = '../../data/12kDriveEnd'
 normal_path = '../../data/Normal_Baseline_Data'
 img_save_path = '../../data/12kDriveEnd_img'
-train_number = 800  # 800
-val_number = 100  # 100
-test_number = 100 # 100
+train_number = 8000  # 800
+val_number = 1000  # 100
+test_number = 1000 # 100
 matrix_size = 64 * 64
-#folder2img(img_save_path, data_path, train_number, val_number, test_number, matrix_size)
-folder2img(img_save_path, normal_path, train_number, val_number, test_number, matrix_size)
+
+folder2img(img_save_path, data_path, train_number, val_number, test_number, matrix_size)
 
 # signal2image(data_path, matrix_number, matrix_size)
